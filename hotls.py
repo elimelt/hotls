@@ -5,8 +5,8 @@ import subprocess
 import datetime
 
 def main():
-    if len(sys.argv) < 2 or (sys.argv[1] != "history" and sys.argv[1] != "lshot"):
-        print("Invalid argument. Usage: " + sys.argv[0] + " {history|lshot [day-range]}")
+    if len(sys.argv) < 2 or (sys.argv[1] != "history" and sys.argv[1] != "hotls"):
+        print("Invalid argument. Usage: " + sys.argv[0] + " {history|hotls [day-range]}")
         sys.exit(1)
 
     if sys.argv[1] == "history":
@@ -25,7 +25,7 @@ def main():
         for file in sorted_files:
             print(history[file])
 
-    elif sys.argv[1] == "lshot":
+    elif sys.argv[1] == "hotls":
         # set date range (default last 30 days)
         since_when = 30
         if (len(sys.argv) != 2): 
