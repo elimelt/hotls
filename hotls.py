@@ -39,12 +39,13 @@ def main():
 
         # collect git log output for each file
         file_counts = {}
+        log = subprocess.run(['git', 'log', '--pretty=format:', '--name-only','--after='+str(date_since.isoformat())], capture_output=True, text=True).stdout
         for root, dirs, files in os.walk('.'):
             for file in files:
                 path = os.path.join(root, file)
-                count = subprocess.run(['git', 'log', '--pretty=format:', '--name-only','--after='+str(date_since.isoformat()), path],
-                                       capture_output=True, text=True).stdout.count(file)
-                file_counts[path] = count
+                if (not ('node_modules' in path or '.git' in path)): # need to search .gitignore file and
+                    count = log.count(file)
+                    file_counts[path] = count
 
         # sort files by count in the git history
         sorted_files = sorted(file_counts, key=lambda file: file_counts[file], reverse=True)
