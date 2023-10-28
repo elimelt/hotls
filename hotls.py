@@ -4,6 +4,17 @@ import os
 import subprocess
 import datetime
 
+os.system("")  # enables ansi escape characters in terminal
+COLOR = {
+    "HEADER": "\033[95m",
+    "BLUE": "\033[94m",
+    "GREEN": "\033[92m",
+    "RED": "\033[91m",
+    "ENDC": "\033[0m",
+}
+
+print(COLOR["GREEN"], "Testing Green!!", COLOR["ENDC"])
+
 def main():
     if len(sys.argv) < 2 or (sys.argv[1] != "history" and sys.argv[1] != "hotls"):
         print("Invalid argument. Usage: " + sys.argv[0] + " {history|hotls [day-range]}")
@@ -57,12 +68,14 @@ def main():
         for file in sorted_files:
             count = file_counts[file]
             # calculate color based on the count
-            if(max_count > 0): g = 255 * count // max_count
-            else : g = 0
+            if max_count > 0:
+                g = 255 * count // max_count
+            else:
+                g = 0
             r = 255 - g
             # create ANSI escape code for color
             color = f"\033[38;2;{r};{g};0m"
-            # print colored file name 
+            # print colored file name
             print(f"{color}{file}\033[0m")
 
 if __name__ == "__main__":
